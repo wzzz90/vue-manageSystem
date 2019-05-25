@@ -1,13 +1,26 @@
 {
   "name": "node-app",
   "version": "0.1.0",
-  "private": true,
+  "description": "pdd",
+  "author": "timer",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "start": "npm run serve"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
     "core-js": "^2.6.5",
+    "element-ui": "^2.8.2",
+    "express": "^4.17.0",
+    "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
+    "mongoose": "^5.5.11",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
