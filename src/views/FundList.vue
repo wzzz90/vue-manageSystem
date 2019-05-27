@@ -1,9 +1,29 @@
 <template>
 <div class="fillcontain">
   <div>
-    <el-form :inline="true" ref="search_data">
+  <el-form
+      :inline="true"
+      ref="search_data" 
+      :model='search_data' >
+      <el-form-item label="投标时间筛选:">
+          <el-date-picker
+              v-model="search_data.startTime"
+              type="datetime"
+              placeholder="选择开始时间">
+          </el-date-picker> --
+          <el-date-picker
+              v-model="search_data.endTime"
+              type="datetime"
+              placeholder="选择结束时间"
+              :picker-options="endDatePicker">
+          </el-date-picker>
+      </el-form-item>
+      <el-form-item>
+          <el-button type="primary" size ="small" icon="search" @click='handelFilter()'>筛选</el-button>
+      </el-form-item>
       <el-form-item class="btnRight">
-        <el-button type="primary" size ="small" icon="view" @click='handelAdd()'>添加</el-button>
+        <el-button type="primary" size ="small" icon="view" @click='handelAdd()'
+        v-privilege="'add'">添加</el-button>
       </el-form-item>      
     </el-form>
   </div>
@@ -80,14 +100,20 @@
         prop="operation"
         align="center"
         fixed="right"
-        width="320"
+        width="360"
         label="操作">
         <template slot-scope="scope">
           <el-button
+            v-privilege="'check'"
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+          <el-button
+            v-privilege="'edit'"
             type="warning"
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button
+            v-privilege="'delete'"
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -130,12 +156,18 @@ export default {
       },
       tableData: [],
       allTableData: [],
+      filterTableData: [],
       dialog: {
         option: 'add',
         show: false,
         title: '添加资金信息'
       },
-      form: {}
+      form: {},
+      search_data: {
+        startTime: "",
+        endTime: ""
+      },
+      endDatePicker:this.processDate()
     };
   },
   components: {
@@ -150,7 +182,8 @@ export default {
     async getData() {
       try {
         const res = await this.$axios.get('/api/profiles');
-        this.allTableData = res.data
+        this.allTableData = res.data;
+        this.filterTableData = res.data;
         this.setPagination();
       } catch (error) {
         
@@ -169,9 +202,6 @@ export default {
         show: true
       }
       this.form = JSON.parse(JSON.stringify(this.tableData[index]));
-    },
-    handleDelete(index, row) {
-
     },
     handelAdd() {
       this.dialog = {
@@ -215,6 +245,37 @@ export default {
       let allTableArr = JSON.parse(JSON.stringify(this.allTableData))
       let index = this.pagination.pageSize * (page - 1)
       this.tableData = this.allTableData.slice(index, index + this.pagination.pageSize)
+    },
+    handelFilter() {
+      if(!this.search_data.startTime || !this.search_data.endTime) {
+        this.$message({
+          type: 'warning',
+          message: '请选择时间区间'
+        })
+        //this.getData();
+        return;
+      }
+      
+      const stime = this.search_data.startTime.getTime();
+      const etime = this.search_data.endTime.getTime();
+
+      this.allTableData = this.filterTableData.filter(item => {
+        let time = new Date(item.date).getTime();
+
+        return time >= stime && time <= etime;
+      })
+       // 分页数据
+      this.setPagination();
+    },
+    processDate(){
+      let self = this
+      return {
+        disabledDate(time){
+          if(self.search_data.startTime){
+            return new Date(self.search_data.startTime).getTime() > time.getTime()
+          }
+        }
+      }
     }
   }
 }

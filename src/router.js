@@ -8,6 +8,8 @@ import Home from '@/views/Home.vue'
 import InfoShow from '@/views/InfoShow.vue'
 import FundList from '@/views/FundList.vue'
 Vue.use(Router)
+import store from './store';
+import axios from './http';
 
 const router = new Router({
   mode: "history",
@@ -32,6 +34,7 @@ const router = new Router({
       },{
         path: '/infoshow',
         name: 'infoshow',
+        meta: {},
         component: InfoShow,
       },{
         path: '/fundlist',
@@ -65,8 +68,43 @@ router.beforeEach((to, from, next) => {
   if(to.path == '/login' || to.path == '/register') {
     next()
   } else {
+    console.log(store.getters.privileges)
+    if(store.getters.privileges.length == 0) {
+      loadPrivileges()
+    }
     isLogin ? next() : next("/login")
   }
 })
 
+const loadPrivileges = async () => {
+  let promise;
+  
+  if(!store.getters.privileges.length) {
+    promise = new Promise(async (resolve, reject) => {
+      let url, response, codes;
+
+      if(store.getters.user.id) {
+        const identity = store.getters.identity;
+
+        url = `/api/privileges?identity=${identity}`;
+
+        try {
+          response = await axios.get(url);
+          codes = response.data.data || [];
+
+          await store.commit('GET_PRIVILEGES', codes)
+
+          resolve(codes)
+        } catch (error) {
+          codes = []
+          reject(err)
+        }
+      }
+    })
+  } else {
+    promise = Promise.resolve(store.getters.privileges)
+  }
+
+  return promise;
+}
 export default router;

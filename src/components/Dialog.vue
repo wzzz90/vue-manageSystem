@@ -29,15 +29,15 @@
                     </el-form-item>
 
                     <el-form-item prop='income'  label="收入:">
-                        <el-input type="income" v-model="form.income"></el-input>
+                        <el-input type="number" v-model="form.income"></el-input>
                     </el-form-item>
 
                     <el-form-item prop='expend' label="支出:">
-                        <el-input type="expend" v-model="form.expend"></el-input>
+                        <el-input type="tel" v-model="form.expend"></el-input>
                     </el-form-item>
 
                     <el-form-item prop='cash' label="账户现金:">
-                        <el-input type="cash" v-model="form.cash"></el-input>
+                        <el-input type="telepnone" v-model="form.cash"></el-input>
                     </el-form-item>
 
                      <el-form-item label="备注:">

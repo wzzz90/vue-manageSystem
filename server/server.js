@@ -10,6 +10,7 @@ const users = require("./routes/apis/users.js");
 
 // profile.js
 const profiles = require("./routes/apis/profiles.js");
+const privileges = require("./routes/apis/privileges.js");
 /* db.config */
 const db = require("./config/key.js").mongoURI;
 
@@ -27,6 +28,7 @@ require("./config/passport")(passport);
 
 app.use('/api/users', users)
 app.use('/api/profiles', profiles)
+app.use('/api/privileges', privileges)
 
 app.listen(port, () => {
   console.log(`server running at ${port}`);

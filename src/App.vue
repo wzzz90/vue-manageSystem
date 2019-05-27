@@ -15,6 +15,7 @@ export default {
 
       this.$store.dispatch('setAuthenticated', !this.isEmpty(decode));
       this.$store.dispatch('setUser', decode);
+      this.loadPrivileges();
     }
             
   },
@@ -26,6 +27,23 @@ export default {
         (typeof value === "object" && Object.keys(value).length === 0) ||
         (typeof value === "string" && value.trim().length === 0)
       );
+    },
+    async loadPrivileges() {
+      let url, response, codes;
+      const identity = this.$store.getters.user.identity;
+
+      url = `/api/privileges?identity=${identity}`;
+
+      try {
+        response = await this.$axios.get(url);
+        codes = response.data.data || [];
+
+        await this.$store.commit('GET_PRIVILEGES', codes)
+
+      } catch (error) {
+        codes = []
+      }
+      
     }
   }
 }
