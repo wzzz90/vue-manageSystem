@@ -9,9 +9,9 @@ const Profile = require("../../models/Profile");
   @desc  返回请求的JSON数据
   @access public 
 */
-router.get('/test', (req, res) => {
-  res.json(`msg: Profile logined`)
-})
+// router.get('/test', (req, res) => {
+//   res.json(`msg: Profile logined`)
+// })
 
 /* $route POST /api/profiles/add
   @desc  添加信息
@@ -25,8 +25,10 @@ router.post('/add', passport.authenticate("jwt", {session: false}), (req, res) =
   })
 
   new Profile(profileFields).save()
-      .then(profile => res.json(profile))
-      .catch(err => console.log(err));
+      .then(profile => res.json({msg: '添加成功', status: true}))
+      .catch(err => {
+        res.json({msg: '添加失败', status: false, err: err})
+      })
 
 })
 
@@ -38,12 +40,14 @@ router.get('/', passport.authenticate("jwt", {session: false}), (req, res) => {
   Profile.find()
     .then(profiles => {
       if(!profiles) {
-        return res.status(404).json('没有任何内容')
+        return res.status(404).json({status: false, msg: '没有数据'})
       }
 
-      res.json(profiles)
+      res.json({msg: '查询成功', data: profiles, status: true})
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      res.json({msg: '查询失败', status: false, err: err})
+    })
 })
 
 /* $route GET /api/profiles/:id
@@ -54,12 +58,14 @@ router.get('/:id', passport.authenticate("jwt", {session: false}), (req, res) =>
   Profile.findById({_id: req.params.id})
     .then(profile => {
       if(!profile) {
-        return res.status(404).json('没有任何内容')
+        return res.status(404).json({status: false, msg: '没有该条数据'})
       }
 
-      res.json(profile)
+      res.json({msg: '查询成功', data: profile, status: true})
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      res.json({msg: '查询失败', status: false, err: err})
+    })
 })
 
 
@@ -76,8 +82,10 @@ router.post('/edit/:id', passport.authenticate("jwt", {session: false}), (req, r
 
 
   Profile.findByIdAndUpdate({_id: req.params.id}, {$set: profileFields}, {new: true})
-      .then(profile => res.json(profile))
-      .catch(err => console.log(err));
+      .then(profile => res.json({msg: '编辑成功', status: true}))
+      .catch(err => {
+        res.json({msg: '编辑失败', status: false, err: err})
+      });
 
 })
 
@@ -88,9 +96,9 @@ router.post('/edit/:id', passport.authenticate("jwt", {session: false}), (req, r
 router.delete('/delete/:id', passport.authenticate("jwt", {session: false}), (req, res) => {
   Profile.findByIdAndRemove({_id: req.params.id})
       .then(profile => {
-        profile.save().then(profile => res.json(profile))
+        profile.save().then(profile => res.json({msg: '删除成功', status: true}))
       })
-      .catch(err => console.log(err));
+      .catch(err => res.json({msg: '删除失败', status: false, err: err}));
 
 })
 

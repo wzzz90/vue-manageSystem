@@ -48,11 +48,10 @@ export default {
         if (valid) {
           try {
             let res = await this.$axios.post('/api/users/login', this.loginUser)
+            
+            localStorage.setItem('eleToken', res.token)
 
-            const { token } = res.data;
-            localStorage.setItem('eleToken', token)
-
-            const decode = jwt_decode(token)
+            const decode = jwt_decode(res.token)
 
             this.$store.dispatch('setAuthenticated', !this.isEmpty(decode));
             this.$store.dispatch('setUser', decode);

@@ -7,19 +7,22 @@ Vue.use(Vuex)
 const types = {
   SET_AUTHENTICATED: "SET_AUTHENTICATED",
   SET_USER: "SET_USER",
-  GET_PRIVILEGES: "GET_PRIVILEGES"
+  GET_PRIVILEGES: "GET_PRIVILEGES",
+  SET_PAGESIZE: "SET_PAGESIZE"
 }
 
 const state = {
   isAuthenticated: false,
   user: {},
-  privileges: []
+  privileges: [],
+  pageSize: 5
 }
 
 const getters = {
   isAuthenticated: state => state.isAuthenticated,
   user: state => state.user,
-  privileges: state => state.privileges
+  privileges: state => state.privileges,
+  pageSize: state => state.pageSize
 }
 
 const actions = {
@@ -28,6 +31,9 @@ const actions = {
   },
   setUser({commit}, user) {
     commit(types.SET_USER, user)
+  },
+  setPageSize({commit}, pageSize) {
+    commit(types.SET_PAGESIZE, pageSize)
   },
   clearCurrentState({commit}) {
     commit(types.SET_AUTHENTICATED, false)
@@ -43,9 +49,13 @@ const mutations = {
   [types.SET_USER](state, user) {
     state.user = user || {}
   },
+  [types.SET_PAGESIZE](state, pageSize) {
+    state.pageSize = pageSize || 5;
+  },
   [types.GET_PRIVILEGES](state, privileges) {
     state.privileges = privileges || [];
-  }
+  },
+  
 }
 
  

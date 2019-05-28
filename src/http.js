@@ -35,10 +35,10 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(response => {
   endLoading();
-  return response;
+  return response.data;
 }, error => {
   endLoading();
-  Message.error(error.response.data);
+  Message.error(error.response.data.msg);
   const { status } = error.response;
 
   if(status == 401) {
@@ -46,9 +46,8 @@ axios.interceptors.response.use(response => {
     localStorage.removeItem('eleToken')
     router.push('/login')
   }
-  console.log(error, 1)
-
-  return Promise.reject(error)
+  console.log(error)
+  return Promise.reject(error.response)
 })
 
 export default axios;

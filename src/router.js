@@ -83,21 +83,20 @@ const loadPrivileges = async () => {
       let url, response, codes;
 
       if(store.getters.isAuthenticated) {
-        console.log(store.getters.user.identity)
         const identity = store.getters.user.identity;
 
         url = `/api/privileges?identity=${identity}`;
 
         try {
           response = await axios.get(url);
-          codes = response.data.data || [];
+          codes = response.data || [];
 
           await store.commit('GET_PRIVILEGES', codes)
 
           resolve(codes)
         } catch (error) {
           codes = []
-          reject(err)
+          reject(error)
         }
       }
     })

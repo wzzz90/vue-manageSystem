@@ -48,7 +48,7 @@
           sortable>
           <template slot-scope="scope">
               <el-icon name="time"></el-icon>
-              <span style="margin-left: 10px">{{ dayjs(scope.row.date).format('{YYYY} MM-DDTHH:mm:ss') }}</span>
+              <span style="margin-left: 10px">{{ formateDate(scope.row.date) }}</span>
           </template>
       </el-table-column>
       <el-table-column
@@ -144,7 +144,6 @@
 <script>
 import Dialog from '../components/Dialog'
 import dayjs from 'dayjs';
-
 export default {
   name: 'fundlist',
   data () {
@@ -152,7 +151,7 @@ export default {
       pagination: {
         pageIndex: 1,
         pageSizes: [5, 10, 15, 20],
-        pageSize: 5,
+        pageSize: this.$store.getters.pageSize || 5,
         total: 0
       },
       tableData: [],
@@ -176,10 +175,14 @@ export default {
   },
 
   mounted() {
+    console.log(this.$store.getters.pageSize)
     this.getData();
   },
 
   methods: {
+    formateDate(date) {
+      return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
+    },
     async getData() {
       try {
         const res = await this.$axios.get('/api/profiles');
@@ -193,7 +196,7 @@ export default {
     setPagination() {
       this.pagination.total = this.allTableData.length;
       this.pagination.pageIndex = 1;
-      this.pagination.pageSize = 5;
+      this.pagination.pageSize = this.$store.getters.pageSize || 5;
       this.tableData = this.allTableData.filter((item, index) => index < this.pagination.pageSize)
     },
     handleEdit(index, row) {
@@ -240,7 +243,8 @@ export default {
     handleSizeChange(pageSize) {
       this.pagination.pageIndex = 1;
       this.pagination.pageSize = pageSize;
-      this.tableData = thia.allTableData.filter((item, index) => index < pageSize)
+      this.tableData = this.allTableData.filter((item, index) => index < pageSize);
+      this.$store.dispatch('setPageSize', pageSize)
     },
     handleCurrentChange(page) {
       let allTableArr = JSON.parse(JSON.stringify(this.allTableData))

@@ -22,7 +22,7 @@ router.post('/register', (req, res) => {
   User.findOne({email: req.body.email})
   .then((user) => {
     if(user) {
-      return res.status(400).json('邮箱已被注册')
+      return res.status(400).json({msg: '邮箱已被注册', status: false})
     } else {
       var avatar = gravatar.url(req.body.email, {s: '200', r: 'pg', d: 'mm'});
       const newUser = new User({
@@ -38,8 +38,8 @@ router.post('/register', (req, res) => {
           if (err) throw err;
           newUser.password = hash;
           newUser.save()
-                .then(user => res.json(user))
-                .catch(err => console.log(err));
+                .then(user => res.json({msg: '注册成功', status: true, data: user}))
+                .catch(err => res.json({msg: '注册失败', status: false, err: err}));
         });
       });
     }
@@ -56,7 +56,7 @@ router.post('/login', (req, res) => {
   User.findOne({email})
   .then(user => {
     if(!user) {
-      return res.status(404).json( '用户不存在')
+      return res.status(404).json({msg: '用户尚未注册', status: false})
     }
 
     bcrypt.compare(password, user.password)
@@ -71,12 +71,13 @@ router.post('/login', (req, res) => {
         jwt.sign(rule, secretOrKey, { expiresIn: 7200 }, (err, token) => {
           if(err) throw err;
           return res.json({
-            success: true,
+            status: true,
             token: "Bearer " + token, 
+            msg: '登录成功'
           })
         });
       } else {
-        return res.status(400).json("密码错误")
+        return res.status(400).json({msg: '用户名或密码错误', status:false})
       }
     });
   })

@@ -3,7 +3,7 @@ module.exports = {
   // 将baseUrl: '/api',改为baseUrl: '/',
   baseUrl: '/',
   devServer: {
-    open: true,
+    open: false,
     host: 'localhost',
     port: 8080,
     https: false,
