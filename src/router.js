@@ -68,7 +68,6 @@ router.beforeEach((to, from, next) => {
   if(to.path == '/login' || to.path == '/register') {
     next()
   } else {
-    console.log(store.getters.privileges)
     if(store.getters.privileges.length == 0) {
       loadPrivileges()
     }
@@ -83,8 +82,9 @@ const loadPrivileges = async () => {
     promise = new Promise(async (resolve, reject) => {
       let url, response, codes;
 
-      if(store.getters.user.id) {
-        const identity = store.getters.identity;
+      if(store.getters.isAuthenticated) {
+        console.log(store.getters.user.identity)
+        const identity = store.getters.user.identity;
 
         url = `/api/privileges?identity=${identity}`;
 

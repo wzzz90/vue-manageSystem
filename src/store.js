@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
-import { resolve } from 'any-promise';
-
+import createPersist, { createStorage } from 'vuex-localstorage'
+import packageJson from '../package.json';
 Vue.use(Vuex)
 
 const types = {
@@ -32,16 +31,8 @@ const actions = {
   },
   clearCurrentState({commit}) {
     commit(types.SET_AUTHENTICATED, false)
-    commit(types.SET_USER, null)
-  },
-  async getPrivileges({commit}) {
-    try {
-      let res = await axios.get(`/api/privileges?identity=${state.user.identity}`)
-      // commit(types.GET_PRIVILEGES, res.data.data)
-    } catch (error) {
-      
-      console.log(err)
-    }
+    commit(types.SET_USER, null),
+    commit(types.GET_PRIVILEGES, [])
   }
 }
 
@@ -56,9 +47,16 @@ const mutations = {
     state.privileges = privileges || [];
   }
 }
+
+ 
 export default new Vuex.Store({
   state,
   getters,
   actions,
-  mutations
+  mutations,
+  plugins: [createPersist({
+    namespace: `${packageJson.name}@${packageJson.version}:store`,
+    // ONE_WEEK
+    expires: 7 * 24 * 60 * 60 * 1e3
+  })]
 })

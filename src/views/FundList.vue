@@ -48,7 +48,7 @@
           sortable>
           <template slot-scope="scope">
               <el-icon name="time"></el-icon>
-              <span style="margin-left: 10px">{{ scope.row.date }}</span>
+              <span style="margin-left: 10px">{{ dayjs(scope.row.date).format('{YYYY} MM-DDTHH:mm:ss SSS [Z] A') }}</span>
           </template>
       </el-table-column>
       <el-table-column
@@ -143,6 +143,7 @@
 
 <script>
 import Dialog from '../components/Dialog'
+import dayjs from 'dayjs';
 
 export default {
   name: 'fundlist',

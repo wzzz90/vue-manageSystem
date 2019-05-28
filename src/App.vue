@@ -15,7 +15,7 @@ export default {
 
       this.$store.dispatch('setAuthenticated', !this.isEmpty(decode));
       this.$store.dispatch('setUser', decode);
-      this.loadPrivileges();
+      // this.loadPrivileges();
     }
             
   },
