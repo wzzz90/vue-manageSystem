@@ -8,9 +8,9 @@ const mPrivilege = ['add', 'edit', 'delete', 'check'];
 router.get('/',passport.authenticate("jwt", {session: false}), (req, res) => {
   const identity = req.query.identity;
   if (identity == 'manager') {
-    return res.json({msg: '成功', data: mPrivilege})
+    return res.json({msg: '成功', data: mPrivilege,status: true})
   } else {
-    return res.json({msg: '成功', data: ePrivilege})
+    return res.json({msg: '成功', data: ePrivilege, status: true})
   }
 })
 

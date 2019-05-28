@@ -48,7 +48,7 @@
           sortable>
           <template slot-scope="scope">
               <el-icon name="time"></el-icon>
-              <span style="margin-left: 10px">{{ dayjs(scope.row.date).format('{YYYY} MM-DDTHH:mm:ss SSS [Z] A') }}</span>
+              <span style="margin-left: 10px">{{ dayjs(scope.row.date).format('{YYYY} MM-DDTHH:mm:ss') }}</span>
           </template>
       </el-table-column>
       <el-table-column
