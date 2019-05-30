@@ -2,12 +2,14 @@
 <el-row class="menu_page">
   <el-col>
     <el-menu
+      :default-active="defaultActive"
       class="el-menu-vertical-demo"
       background-color="#324057"
       text-color="#fff"
-      active-text-color="#ffd04b">
+      active-text-color="#ffd04b"
+      @select="handleSelect" >
       <router-link to="/home">
-        <el-menu-item index="0">
+        <el-menu-item index="home">
           <i class="el-icon-setting"></i>
           <span slot="title">首页</span>
         </el-menu-item>
@@ -22,7 +24,6 @@
             <el-menu-item :index="citem.path">{{citem.name}}</el-menu-item>
           </router-link>
         </el-submenu>
-
       </template>
     </el-menu>
   </el-col>
@@ -53,11 +54,19 @@ export default {
 
   components: {},
 
-  computed: {},
+  computed: {
+      defaultActive() {
+        return this.$store.getters.activeItem;
+      }
+  },
 
   mounted() {},
 
-  methods: {}
+  methods: {
+    handleSelect(key, keyPath) {
+      this.$store.dispatch('setActiveItem', key)
+    },
+  }
 }
 
 </script>

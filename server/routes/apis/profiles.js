@@ -9,9 +9,64 @@ const Profile = require("../../models/Profile");
   @desc  返回请求的JSON数据
   @access public 
 */
-// router.get('/test', (req, res) => {
-//   res.json(`msg: Profile logined`)
-// })
+router.get('/test', (req, res) => {
+  res.json(`msg: Profile logined`)
+})
+
+/* $route GET /api/profiles/statis
+  @desc  获取统计信息
+  @access public 
+*/
+router.get('/statis', (req, res) => {
+  Profile.find()
+    .then(profiles => {
+      if(!profiles) {
+        return res.status(404).json({status: false, msg: '没有数据'})
+      }
+      const year = req.query.year || 2019;
+      const profileArr = [...profiles];
+      let profileobj = {};
+      for (let index = 1; index < 13; index++) {
+        const obj = {
+          income: 0,
+          expend: 0,
+          cash: 0
+        }
+        profileobj[index] = obj;
+      }
+      profileobj['total'] = {
+        income: 0,
+        expend: 0,
+        cash: 0
+      }
+
+      profileArr.forEach(item => {
+        if(year == new Date(item.date).getFullYear()) {
+          const month = (new Date(item.date).getMonth() + 1);
+          let monthObj = profileobj[month];
+  
+          monthObj.income += Number(item.income);
+          monthObj.expend += Number(item.expend);
+          monthObj.cash += Number(item.cash);
+
+          profileobj['total'].income += Number(item.income);
+          profileobj['total'].expend += Number(item.expend);
+          profileobj['total'].cash += Number(item.cash);
+        } else if(year == 'all') {
+          profileobj['all'].income = Number(item.income);
+          profileobj['all'].expend += Number(item.expend);
+          profileobj['all'].cash += Number(item.cash);
+        }
+      })
+
+
+      res.json({msg: '查询成功', data: profileobj, status: true})
+    })
+    .catch(err => {
+      res.json({msg: '查询失败', status: false, err: err})
+    })
+})
+
 
 /* $route POST /api/profiles/add
   @desc  添加信息
@@ -101,5 +156,7 @@ router.delete('/delete/:id', passport.authenticate("jwt", {session: false}), (re
       .catch(err => res.json({msg: '删除失败', status: false, err: err}));
 
 })
+
+
 
 module.exports = router;

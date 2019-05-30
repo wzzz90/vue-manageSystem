@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Message, Loading } from 'element-ui';
 import router from './router';
 
-axios.defaults.timeout = 6000;
+// axios.defaults.timeout = 3000;
 
 let loading;
 
@@ -38,7 +38,13 @@ axios.interceptors.response.use(response => {
   return response.data;
 }, error => {
   endLoading();
-  Message.error(error.response.data.msg);
+  // if(error.indexOf('timeout') > -1) {
+  //   Message.error('网络超时');
+  // }
+
+  const msg = error.response.data.msg || error.response.data
+  Message.error(msg);
+
   const { status } = error.response;
 
   if(status == 401) {
@@ -46,7 +52,7 @@ axios.interceptors.response.use(response => {
     localStorage.removeItem('eleToken')
     router.push('/login')
   }
-  console.log(error)
+
   return Promise.reject(error.response)
 })
 

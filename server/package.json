@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "depd": "^2.0.0"
+    "depd": "^2.0.0",
+    "echarts": "^4.2.1"
   }
 }

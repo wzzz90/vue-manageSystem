@@ -8,21 +8,24 @@ const types = {
   SET_AUTHENTICATED: "SET_AUTHENTICATED",
   SET_USER: "SET_USER",
   GET_PRIVILEGES: "GET_PRIVILEGES",
-  SET_PAGESIZE: "SET_PAGESIZE"
+  SET_PAGESIZE: "SET_PAGESIZE",
+  SET_ACTIVEITEM: "SET_ACTIVEITEM"
 }
 
 const state = {
   isAuthenticated: false,
   user: {},
   privileges: [],
-  pageSize: 5
+  pageSize: 5,
+  activeItem: 'home'
 }
 
 const getters = {
   isAuthenticated: state => state.isAuthenticated,
   user: state => state.user,
   privileges: state => state.privileges,
-  pageSize: state => state.pageSize
+  pageSize: state => state.pageSize,
+  activeItem: state => state.activeItem,
 }
 
 const actions = {
@@ -34,6 +37,9 @@ const actions = {
   },
   setPageSize({commit}, pageSize) {
     commit(types.SET_PAGESIZE, pageSize)
+  },
+  setActiveItem({commit}, activeItem) {
+    commit(types.SET_ACTIVEITEM, activeItem)
   },
   clearCurrentState({commit}) {
     commit(types.SET_AUTHENTICATED, false)
@@ -55,6 +61,10 @@ const mutations = {
   [types.GET_PRIVILEGES](state, privileges) {
     state.privileges = privileges || [];
   },
+  [types.SET_ACTIVEITEM](state, activeItem) {
+    state.activeItem = activeItem || 'home';
+  },
+  
   
 }
 
