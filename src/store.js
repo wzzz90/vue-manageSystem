@@ -63,8 +63,7 @@ const mutations = {
   },
   [types.SET_ACTIVEITEM](state, activeItem) {
     state.activeItem = activeItem || 'home';
-  },
-  
+  } 
   
 }
 

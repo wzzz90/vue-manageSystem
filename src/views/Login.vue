@@ -63,7 +63,8 @@ export default {
               center: true
             });
 
-            this.$router.push("/index");
+            const path = this.$store.getters.activeItem || '/index'
+            this.$router.push(path);
 
           } catch (error) {
             console.log(error)

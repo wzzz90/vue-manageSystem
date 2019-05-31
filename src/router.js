@@ -7,6 +7,7 @@ import NotFound from '@/views/404.vue'
 import Home from '@/views/Home.vue'
 import InfoShow from '@/views/InfoShow.vue'
 import FundList from '@/views/FundList.vue'
+import MyEchart from '@/views/MyEchart.vue'
 Vue.use(Router)
 import store from './store';
 import axios from './http';
@@ -40,6 +41,10 @@ const router = new Router({
         path: '/fundlist',
         name: 'fundlist',
         component: FundList,
+      },{
+        path: '/myechart',
+        name: 'myechart',
+        component: MyEchart,
       }
       
     ]

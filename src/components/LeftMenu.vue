@@ -40,7 +40,7 @@ export default {
           icon: "fa-money",
           name: "资金管理",
           path: "fund",
-          children: [{ path: "fundlist", name: "资金流水" }]
+          children: [{ path: "fundlist", name: "资金流水" }, {path: "myechart", name: "数据统计"}]
         },
         {
           icon: "fa-asterisk",
