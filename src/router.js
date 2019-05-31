@@ -8,7 +8,10 @@ import Home from '@/views/Home.vue'
 import InfoShow from '@/views/InfoShow.vue'
 import FundList from '@/views/FundList.vue'
 import MyEchart from '@/views/MyEchart.vue'
+import PriviManage from '@/views/PriviManage.vue'
+
 Vue.use(Router)
+
 import store from './store';
 import axios from './http';
 
@@ -45,6 +48,10 @@ const router = new Router({
         path: '/myechart',
         name: 'myechart',
         component: MyEchart,
+      },{
+        path: '/privimanage',
+        name: 'privimanage',
+        component: PriviManage,
       }
       
     ]

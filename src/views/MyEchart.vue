@@ -95,6 +95,7 @@ export default {
 
   methods: {
     async loadData(year) {
+      this.pieTypeVal = 'income'
       try {
         const res = await this.$axios.get(`/api/profiles/statis?year=${year}`);
         this.statisData = res.data;

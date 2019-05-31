@@ -47,6 +47,12 @@ export default {
           name: "信息管理",
           path: "info",
           children: [{ path: "infoshow", name: "个人信息" }]
+        },
+        {
+          icon: "fa-asterisk",
+          name: "权限管理",
+          path: "privilege",
+          children: [{ path: "privimanage", name: "权限设置" }]
         }
       ]
     };
