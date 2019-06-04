@@ -23,7 +23,7 @@
       </el-form-item>
       <el-form-item class="btnRight">
         <el-button type="primary" size ="small" icon="view" @click='handelAdd()'
-        v-privilege="'add'">添加</el-button>
+        v-privilege="'fundlist-add'">添加</el-button>
       </el-form-item>      
     </el-form>
   </div>
@@ -104,16 +104,16 @@
         label="操作">
         <template slot-scope="scope">
           <el-button
-            v-privilege="'check'"
+            v-privilege="'fundlist-check'"
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">查看</el-button>
           <el-button
-            v-privilege="'edit'"
+            v-privilege="'fundlist-edit'"
             type="warning"
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button
-            v-privilege="'delete'"
+            v-privilege="'fundlist-delete'"
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)">删除</el-button>

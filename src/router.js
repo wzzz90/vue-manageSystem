@@ -97,7 +97,7 @@ const loadPrivileges = async () => {
       if(store.getters.isAuthenticated) {
         const identity = store.getters.user.identity;
 
-        url = `/api/privileges?identity=${identity}`;
+        url = `/api/privileges/role?identity=${identity}`;
 
         try {
           response = await axios.get(url);

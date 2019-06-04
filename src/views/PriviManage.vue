@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-tree
-    :data="data2"
+    :data="treeData2"
     show-checkbox
     node-key="id"
     :default-expanded-keys="[2, 3]"
@@ -15,47 +15,54 @@
   export default {
     data() {
       return {
-        data2: [{
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1'
-            }, {
-              id: 10,
-              label: '三级 1-1-2'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1'
-          }, {
-            id: 6,
-            label: '二级 2-2'
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2'
-          }]
-        }],
+        treeData2: [],
         defaultProps: {
           children: 'children',
           label: 'label'
         }
-      };
-    }
+      }
+    },
+    computed: {
+    },
+    mounted() {
+      this.loadPrivileges()
+    },
+    methods: {
+      loadPrivileges() {
+        const identity = this.$store.getters.user.identity;
+
+          const url = `/api/privileges?identity=${identity}`;
+          
+          this.$axios.get(url).then(res => {
+            const privData = res.data;
+            if(privData.length) {
+              this.formate(privData)
+            }
+          })
+      },
+
+      formate(privData) {
+        if(Array.isArray(privData)) {
+          privData.forEach( item => {
+            if(item.parent) {
+              this.formate(item)
+            } else {
+              item.children = [];
+              this.treeData2.push(item)
+            }
+          })
+        } else {
+          this.treeData2.forEach(item => {
+            const parentCode = privData.code.split('-')[0];
+            
+            if(parentCode == item.code) {
+              item.children.push(privData)
+            }
+          })
+        }
+        
+      }
+    },
   };
 </script>
 <style lang='scss' scoped>
