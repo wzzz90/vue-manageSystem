@@ -17,7 +17,27 @@ const state = {
   user: {},
   privileges: [],
   pageSize: 5,
-  activeItem: 'home'
+  activeItem: 'home',
+  leftMenu: [
+    {
+      icon: "fa-money",
+      name: "资金管理",
+      path: "fundlist",
+      children: [{ path: "fundlist", name: "资金流水" }, {path: "myechart", name: "数据统计"}]
+    },
+    {
+      icon: "fa-asterisk",
+      name: "信息管理",
+      path: "info",
+      children: [{ path: "infoshow", name: "个人信息" }]
+    },
+    {
+      icon: "fa-asterisk",
+      name: "权限管理",
+      path: "privilege",
+      children: [{ path: "privimanage", name: "权限设置" }]
+    }
+  ]
 }
 
 const getters = {
@@ -26,6 +46,7 @@ const getters = {
   privileges: state => state.privileges,
   pageSize: state => state.pageSize,
   activeItem: state => state.activeItem,
+  leftMenu: state => state.leftMenu,
 }
 
 const actions = {
