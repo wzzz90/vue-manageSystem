@@ -111,7 +111,8 @@ export default {
             // 操作成功
             this.$message({
               message: "保存成功！",
-              type: "success"
+              type: "success",
+              customClass: "zZindex"
             });
             this.dialog.show = false;
             this.$refs[formName].resetFields()

@@ -135,7 +135,10 @@
         try {
           const res = await this.$axios.delete(`/api/privileges/delete/${id}`)
           this.loadPrivileges();
-          this.$message(res.msg)
+          this.$message( {
+            message: res.msg,
+            customClass: "zZindex"
+          })
         } catch (error) {
           console.log(error)
         }
@@ -189,10 +192,17 @@
           const params = JSON.parse(JSON.stringify(this.addData))
           const res = await this.$axios.post('/api/privileges/add', params);
           this.loadPrivileges();
-          this.$message(res.msg)
+          this.$message( {
+            message: res.msg,
+            customClass: "zZindex"
+          })
         } catch (error) {
           console.log(error)
-          this.$message(error)
+          this.$message( {
+            type: "error",
+            message: error,
+            customClass: "zZindex"
+          })
         }
       }
     },

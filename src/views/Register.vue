@@ -2,7 +2,7 @@
   <div class="register">
     <section class="form_container">
       <div class="manage_tip">
-          <span class="title">时倾后台</span>
+          <span class="title">时倾后台管理</span>
           <el-form :model="registerUser" :rules="rules" ref="registerForm" label-width="80px" class="registerForm" label-position="right">
             <el-form-item label="用户名" prop="name">
               <el-input v-model="registerUser.name" auto-complete="off" placeholder="请输入用户名"></el-input>
@@ -81,7 +81,8 @@ export default {
             this.$message({
               message: "账号注册成功！",
               type: "success",
-              center: true
+              center: true,
+              customClass: "zZindex"
             });
             this.$router.push("/login");
           } catch (error) {

@@ -233,7 +233,8 @@ export default {
           this.getData();
           this.$message({
             type: 'success',
-            message: '删除成功!'
+            message: '删除成功!',
+            customClass: "zZindex"
           });
         } catch (error) {
           
@@ -255,7 +256,8 @@ export default {
       if(!this.search_data.startTime || !this.search_data.endTime) {
         this.$message({
           type: 'warning',
-          message: '请选择时间区间'
+          message: '请选择时间区间',
+          customClass: "zZindex"
         })
         //this.getData();
         return;

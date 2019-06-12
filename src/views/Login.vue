@@ -2,7 +2,7 @@
   <div class="login">
     <section class="form_container">
       <div class="manage_tip">
-          <span class="title">时倾后台</span>
+          <span class="title">时倾后台管理</span>
           <el-form :model="loginUser" :rules="rules" ref="loginForm" label-width="60px" class="loginForm" label-position="right">
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="loginUser.email" auto-complete="off" placeholder="请输入邮箱"></el-input>
@@ -60,7 +60,8 @@ export default {
             this.$message({
               message: "账号登录成功！",
               type: "success",
-              center: true
+              center: true,
+              customClass: "zZindex"
             });
 
             const path = this.$store.getters.activeItem || '/index'

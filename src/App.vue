@@ -41,4 +41,7 @@ html,body,#app {
 body .el-table th.gutter{
   display: table-cell !important;
 }
+.zZindex {
+  z-index:3000 !important;
+}
 </style>
