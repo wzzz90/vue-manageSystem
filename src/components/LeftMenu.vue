@@ -2,28 +2,32 @@
 <el-row class="menu_page">
   <el-col>
     <el-menu
+      :router="true"
       :default-active="defaultActive"
       class="el-menu-vertical-demo"
       background-color="#324057"
       text-color="#fff"
       active-text-color="#ffd04b"
       @select="handleSelect" >
-      <router-link to="/home">
-        <el-menu-item index="home">
-          <i class="el-icon-setting"></i>
-          <span slot="title">首页</span>
-        </el-menu-item>
-      </router-link>
       <template v-for="item in items">
-        <el-submenu v-if="item.children" :index="item.path" :key="item.path">
+
+        <el-menu-item  
+          :index="item.path" 
+          :key="item.path" 
+          :route="{path: item.path}" 
+          v-if="!item.meta.hidden && item.meta.dropdown">
+          <i class="el-icon-setting"></i>
+          <span slot="title">{{item.meta.label}}</span>
+        </el-menu-item>
+
+        <el-submenu v-if="!item.meta.hidden && !item.meta.dropdown" :index="item.path" :key="item.path">
           <template slot="title">
-            <i :class="'fa fa-margin '+item.icon"></i>
-            <span slot="title">{{item.name}}</span>
+            <i :class="'fa fa-margin '+item.meta.icon"></i>
+            <span slot="title">{{item.meta.label}}</span>
           </template>
-          <router-link v-for="(citem,cindex) in item.children" :to="citem.path" :key="cindex">
-            <el-menu-item :index="citem.path">{{citem.name}}</el-menu-item>
-          </router-link>
+            <el-menu-item v-for="citem in item.children" :to="citem.path" :key="citem.path" :route="{path: citem.path}" :index="citem.path" >{{citem.meta.label}}</el-menu-item>
         </el-submenu>
+        
       </template>
     </el-menu>
   </el-col>
@@ -31,23 +35,37 @@
 </template>
 
 <script>
+import { routes } from '../router';
 export default {
   name: '',
   data () {
     return {
-      items: this.$store.getters.leftMenu
+      // items: this.$store.getters.leftMenu
     };
   },
 
   components: {},
 
   computed: {
-      defaultActive() {
-        return this.$store.getters.activeItem;
-      }
+    defaultActive() {
+      return this.$store.getters.activeItem;
+    },
+    items() {
+      const items = JSON.parse(JSON.stringify(routes)).filter(item => (item.name !== 'login' && item.name !== 'register' && item.name !== '404'))
+
+      items.forEach(element => {
+        delete element.component
+        delete element.redirect
+      });
+      
+      console.log(items)
+      return items;
+    }
   },
 
-  mounted() {},
+  mounted() {
+
+  },
 
   methods: {
     handleSelect(key, keyPath) {

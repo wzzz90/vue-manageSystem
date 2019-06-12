@@ -4,12 +4,14 @@ const passport = require("passport");
 
 const Privilege = require("../../models/Privilege");
 
+
 //获取全部人员权限
 router.get('/',passport.authenticate("jwt", {session: false}), (req, res) => {
   Privilege.find()
     .then(privilegeData => res.json({msg: '成功', data: privilegeData,status: true}))
     .catch(err => res.json({msg: '查询成功', err: err, status: false}))
 })
+
 
 //根据角色获取权限
 router.get('/role',passport.authenticate("jwt", {session: false}), (req, res) => {
@@ -27,6 +29,7 @@ router.get('/role',passport.authenticate("jwt", {session: false}), (req, res) =>
   
 })
 
+
 /* 添加权限 */
 router.post('/add', passport.authenticate("jwt", {session: false}), (req, res) => {
   let privilegeParams = req.body;
@@ -35,6 +38,7 @@ router.post('/add', passport.authenticate("jwt", {session: false}), (req, res) =
       .then(privilege => res.json({msg: '添加成功', status: true}))
       .catch(err => console.log(err))
 })
+
 
 /* 删除权限 */
 router.delete('/delete/:id', passport.authenticate("jwt", {session: false}), (req, res) => {

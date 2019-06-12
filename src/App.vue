@@ -15,8 +15,7 @@ export default {
 
       this.$store.dispatch('setAuthenticated', !this.isEmpty(decode));
       this.$store.dispatch('setUser', decode);
-    }
-            
+    }     
   },
   methods: {
     isEmpty(value) {
@@ -37,6 +36,7 @@ html,body,#app {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  margin: 0;
 }
 body .el-table th.gutter{
   display: table-cell !important;
