@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Layout  from '@/components/Layout';
+import store from './store';
+import axios from './http';
 
-const load = (view) => () => import(`./views/${ view }`);
+import Layout  from '@/components/Layout';
 
 Vue.use(Router)
 
-import store from './store';
-import axios from './http';
+const load = (view) => () => import(`./views/${ view }`);
 
 const routes = [
   {
@@ -27,7 +27,8 @@ const routes = [
     meta: {
       label: '首页',
       hidden: false,
-      dropdown: true
+      dropdown: true,
+      icon: 'icon-home'
     },
     children: [{
       path: '/index',
@@ -44,7 +45,7 @@ const routes = [
     redirect: '/info/infoshow',
     meta: {
       label: '信息管理',
-      icon: "fa-asterisk",
+      icon: "icon--yonghuquanxiangua",
       hidden: false,
       dropdown: false
     },
@@ -63,7 +64,7 @@ const routes = [
     redirect: '/fundmanage/fundlist',
     meta: {
       label: '资金管理',
-      icon: "fa-money",
+      icon: "icon-invest",
       hidden: false,
       dropdown: false
     },
@@ -92,7 +93,7 @@ const routes = [
     redirect: '/privilegemanage/privilege',
     meta: {
       label: '权限管理',
-      icon: "fa-asterisk",
+      icon: "icon--jiaoseyuquanxian",
       hidden: false,
       dropdown: false
     },

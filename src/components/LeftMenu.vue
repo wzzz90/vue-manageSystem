@@ -16,13 +16,13 @@
           :key="item.path" 
           :route="{path: item.path}" 
           v-if="!item.meta.hidden && item.meta.dropdown">
-          <i class="el-icon-setting"></i>
+          <i :class="'iconfont '+item.meta.icon"></i>
           <span slot="title">{{item.meta.label}}</span>
         </el-menu-item>
 
         <el-submenu v-if="!item.meta.hidden && !item.meta.dropdown" :index="item.path" :key="item.path">
           <template slot="title">
-            <i :class="'fa fa-margin '+item.meta.icon"></i>
+            <i :class="'iconfont '+item.meta.icon"></i>
             <span slot="title">{{item.meta.label}}</span>
           </template>
             <el-menu-item v-for="citem in item.children" :to="citem.path" :key="citem.path" :route="{path: citem.path}" :index="citem.path" >{{citem.meta.label}}</el-menu-item>
