@@ -51,7 +51,7 @@ export default {
       return this.$store.getters.activeItem;
     },
     items() {
-      const items = JSON.parse(JSON.stringify(routes)).filter(item => (item.name !== 'login' && item.name !== 'register' && item.name !== '404'))
+      const items = JSON.parse(JSON.stringify(routes)).filter(item => (item.name !== 'login' && item.name !== 'register' && item.name !== '404' && item.name !== 'noPermission'))
 
       items.forEach(element => {
         delete element.component

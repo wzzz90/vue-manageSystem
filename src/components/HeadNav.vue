@@ -2,7 +2,7 @@
     <header class="head-nav">
         <el-row>
             <el-col :span="6" class='logo-container'>
-                <img src="../assets/logo.png" class='logo' alt="">
+                <img src="../assets/logo.jpg" class='logo' alt="">
                 <span class='title'>时倾后台管理</span>
             </el-col>
             <el-col :span='6' class="user">
@@ -43,7 +43,7 @@ export default {
   methods: {
     setDialogInfo(cmditem) {
       if (!cmditem) {
-        console.log("test");
+        
         this.$message("菜单选项缺少command属性");
         return;
       }

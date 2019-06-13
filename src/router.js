@@ -95,17 +95,26 @@ const routes = [
       label: '权限管理',
       icon: "icon--jiaoseyuquanxian",
       hidden: false,
-      dropdown: false
+      dropdown: false,
+      code: 'privilege',
     },
     children: [{
       path: '/privilegemanage/privilege',
       component: load('PriviManage'),
       meta: {
-        code: 'privilege',
         label: '权限设置',
-        hidden: false
+        hidden: false,
+        code: 'privilege',
       }
     }]
+  },
+  {
+    path: '/noPermission',
+    name: 'noPermission',
+    meta: {
+      hidden: false
+    },
+    component: load('noPermission')
   },
   {
     path: '*',
@@ -146,6 +155,7 @@ router.beforeEach((to, from, next) => {
         next()
       } else {
         to.meta.hidden = true;
+        next('/noPermission')
       }
     } else {
       next("/login")

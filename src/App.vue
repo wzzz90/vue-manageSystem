@@ -44,4 +44,7 @@ body .el-table th.gutter{
 .zZindex {
   z-index:3000 !important;
 }
+p {
+  margin: 0;
+}
 </style>
