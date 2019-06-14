@@ -56,7 +56,12 @@ export default {
       items.forEach(element => {
         delete element.component
         delete element.redirect
+        this.checkPrivilege(element)
+        // if(element.children.length == 1 && !!element.children[0].meta.hidden) {
+        //   element.meta.hidden = true
+        // }
       });
+      
       
       console.log(items)
       return items;
@@ -71,6 +76,14 @@ export default {
     handleSelect(key, keyPath) {
       this.$store.dispatch('setActiveItem', key)
     },
+    checkPrivilege (route) {
+      const codes = this.$store.getters.privileges;
+      const code = route.meta.code;
+      let hasPrivilege = true;
+      if(!!code) {
+        route.meta.hidden = !(codes.includes(code));
+      }
+    }
   }
 }
 

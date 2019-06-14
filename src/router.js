@@ -151,10 +151,8 @@ router.beforeEach((to, from, next) => {
     }
     if(isLogin) {
       if(checkPrivilege(to)) {
-        to.meta.hidden = false;
         next()
       } else {
-        to.meta.hidden = true;
         next('/noPermission')
       }
     } else {

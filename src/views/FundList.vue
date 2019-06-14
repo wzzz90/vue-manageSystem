@@ -1,5 +1,6 @@
 <template>
 <div class="fillcontain">
+  <h4>资金流水</h4>
   <div>
   <el-form
       :inline="true"
@@ -144,6 +145,7 @@
 <script>
 import Dialog from '../components/Dialog'
 import dayjs from 'dayjs';
+import { routes } from '../router';
 export default {
   name: 'fundlist',
   data () {
@@ -288,12 +290,16 @@ export default {
 }
 
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .fillcontain {
   width: 100%;
   height: 100%;
   padding: 16px;
   box-sizing: border-box;
+  >h4 {
+    margin: 20px 0;
+    font-size: 24px;
+  }
 }
 .btnRight {
   float: right;

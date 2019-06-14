@@ -8,6 +8,7 @@ import axios from './http';
 import echarts from 'echarts';
 import directive from './directives';
 import * as custom  from './filters';
+import "../public/css/reset.css"
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
