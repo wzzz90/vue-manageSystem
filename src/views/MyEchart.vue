@@ -1,5 +1,6 @@
 <template>
   <div class="static-container">
+    <h4 class="title">数据统计</h4>
     <el-row class="number-container" type="flex" justify="center">
       <el-col class="number-col">
         总收入：￥{{this.statisData.total.income | currencyFormat}}

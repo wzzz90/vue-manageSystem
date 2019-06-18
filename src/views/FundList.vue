@@ -1,6 +1,6 @@
 <template>
 <div class="fillcontain">
-  <h4>资金流水</h4>
+  <h4 class="title">数据统计</h4>
   <div>
   <el-form
       :inline="true"

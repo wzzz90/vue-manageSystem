@@ -3,11 +3,11 @@
         <el-row>
             <el-col :span="6" class='logo-container'>
                 <img src="../assets/logo.jpg" class='logo' alt="">
-                <span class='title'>时倾后台管理</span>
+                <span class='title'>vue全栈后台管理系统</span>
             </el-col>
             <el-col :span='6' class="user">
                 <div class="userinfo">
-                    <img :src="user.avatar" class='avatar' alt="">
+                    <img :src="user.avatar" class='avatar' :alt="user.name" :onerror="errorUserPhoto" >
                      <div class='welcome'>
                         <p class='name comename'>欢迎</p>
                         <p class='name avatarname'>{{user.name}}</p>
@@ -35,6 +35,11 @@
 <script>
 export default {
   name: "head-nav",
+  data() {
+    return {
+      errorUserPhoto: 'this.src="' + require('@/assets/default_avatar.png') + '"',
+    }
+  },
   computed: {
     user() {
       return this.$store.getters.user;

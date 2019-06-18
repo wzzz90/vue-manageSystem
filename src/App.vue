@@ -47,4 +47,10 @@ body .el-table th.gutter{
 p {
   margin: 0;
 }
+
+h4.title {
+  margin: 20px 0;
+  font-size: 24px;
+  margin-bottom: 40px;
+}
 </style>

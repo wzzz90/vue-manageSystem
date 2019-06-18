@@ -67,6 +67,7 @@ router.post('/login', (req, res) => {
           id: user.id,
           avatar: user.avatar,
           identity: user.identity,
+          date: user.date
         }
         jwt.sign(rule, secretOrKey, { expiresIn: 7200 }, (err, token) => {
           if(err) throw err;
@@ -92,7 +93,48 @@ router.get('/current', passport.authenticate("jwt", {session: false}), (req, res
     id: req.user._id,
     name: req.user.name,
     email: req.user.email,
-    identity: req.user.identity
+    identity: req.user.identity,
   });
 })
+
+
+/* $route POST /api/users/edit
+  @desc  返回msg
+  @access private 
+*/
+router.post('/edit', (req, res) => {
+  const _id = req.body.id
+  
+  delete req.body.id;
+  const infoForm = req.body;
+  
+  User.findByIdAndUpdate({ _id },{$set: infoForm}, {new: true})
+  .then(user => {
+    const rule = { 
+      name: req.body.name, 
+      id: _id,
+      avatar: req.body.avatar,
+      identity: req.body.identity,
+      date: req.body.date
+    }
+    jwt.sign(rule, secretOrKey, { expiresIn: 7200 }, (err, token) => {
+      if(err) throw err;
+      return res.json({
+        status: true,
+        token: "Bearer " + token, 
+        msg: '编辑成功'
+      })
+    });
+  })
+  .catch(error => {
+    res.json({
+      status: false,
+      id: _id,
+      error: error,
+      msg: '编辑失败'
+    })
+  })
+})
+
+
 module.exports = router;

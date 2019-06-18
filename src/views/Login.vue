@@ -2,7 +2,7 @@
   <div class="login">
     <section class="form_container">
       <div class="manage_tip">
-          <span class="title">时倾后台管理</span>
+          <span class="title">vue全栈后台管理系统</span>
           <el-form :model="loginUser" :rules="rules" ref="loginForm" label-width="60px" class="loginForm" label-position="right">
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="loginUser.email" auto-complete="off" placeholder="请输入邮箱"></el-input>

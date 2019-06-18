@@ -1,5 +1,6 @@
 <template>
   <div class="privilege-manage">
+    <h4 class="title">权限设置</h4>
     <el-form
       :inline="true"
       ref="priviAddForm" 
@@ -151,7 +152,7 @@
               <span>{node.label}</span>
             </span>
             <span>
-              <el-button style="font-size: 12px;" type="text" on-click={ () => this.remove(node, data) }>Delete</el-button>
+              <el-button style="font-size: 12px;" type="text" on-click={ () => this.remove(node, data) }>删除权限</el-button>
             </span>
           </span>);
       },
