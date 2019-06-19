@@ -27,7 +27,6 @@
           </template>
             <el-menu-item v-for="citem in item.children" :to="citem.path" :key="citem.path" :route="{path: citem.path}" :index="citem.path" >{{citem.meta.label}}</el-menu-item>
         </el-submenu>
-        
       </template>
     </el-menu>
   </el-col>
@@ -36,6 +35,8 @@
 
 <script>
 import { routes } from '../router';
+import { Menu, Submenu, MenuItem} from 'element-ui';
+
 export default {
   name: '',
   data () {
@@ -44,7 +45,11 @@ export default {
     };
   },
 
-  components: {},
+  components: {
+    "el-menu": Menu,
+    "el-menu-item": MenuItem,
+    "el-submenu": Submenu
+  },
 
   computed: {
     defaultActive() {

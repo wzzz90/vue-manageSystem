@@ -146,6 +146,8 @@
 import Dialog from '../components/Dialog'
 import dayjs from 'dayjs';
 import { routes } from '../router';
+import { Pagination } from 'element-ui';
+
 export default {
   name: 'fundlist',
   data () {
@@ -173,7 +175,8 @@ export default {
     };
   },
   components: {
-    Dialog
+    Dialog,
+    "el-pagination": Pagination
   },
 
   mounted() {

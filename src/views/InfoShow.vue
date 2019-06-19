@@ -48,6 +48,7 @@
     </div>
 </template>
 <script>
+import { Upload } from 'element-ui';
 export default {
   name: "infoshow",
   data() {
@@ -61,6 +62,9 @@ export default {
         avatar: ''
       }
     };
+  },
+  components: {
+    "el-upload": Upload
   },
   mounted() {
     this.infoForm = this.$store.getters.user

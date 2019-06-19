@@ -56,11 +56,16 @@
 </template>
 
 <script>
+import { Dialog } from "element-ui";
+
 export default {
   name: "MyDialog",
   props: {
     dialog: Object,
     form: Object
+  },
+  components: {
+    "el-dialog": Dialog
   },
   data() {
     var validateNum = (rule, value, callback) => {

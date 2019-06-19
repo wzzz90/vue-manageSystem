@@ -45,6 +45,9 @@
 </template>
 
 <script>
+
+import { Tree } from "element-ui";
+
   export default {
     data() {
       return {
@@ -61,6 +64,9 @@
           label: 'label'
         }
       }
+    },
+    components: {
+      "el-tree": Tree
     },
     computed: {
       leftMenu() {

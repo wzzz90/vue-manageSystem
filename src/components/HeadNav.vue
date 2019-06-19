@@ -33,6 +33,8 @@
     </header>
 </template>
 <script>
+import { Dropdown, DropdownMenu, DropdownItem } from 'element-ui';
+
 export default {
   name: "head-nav",
   data() {
@@ -44,6 +46,11 @@ export default {
     user() {
       return this.$store.getters.user;
     }
+  },
+  components: {
+    "el-dropdown": Dropdown,
+    "el-dropdown-menu": DropdownMenu,
+    "el-dropdown-item": DropdownItem
   },
   methods: {
     setDialogInfo(cmditem) {
