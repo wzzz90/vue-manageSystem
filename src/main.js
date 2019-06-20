@@ -4,7 +4,6 @@ import router from './router';
 import store from './store';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from './http';
-import echarts from 'echarts';
 import directive from './directives';
 import * as custom  from './filters';
 import "../public/css/reset.css"
@@ -51,11 +50,9 @@ Vue.prototype.$message = Message;
 
 Vue.config.productionTip = false
 
-
 Vue.directive(directive.name, directive)
 
-Vue.prototype.$axios = axios
-Vue.prototype.$echarts = echarts
+Vue.prototype.$axios = axios;
 
 Object.keys(custom).forEach(key => {
   Vue.filter(key, custom[key])

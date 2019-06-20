@@ -12,6 +12,7 @@
         总账户现金：￥{{this.statisData.total.cash | currencyFormat}}
       </el-col>
     </el-row>
+    
     <el-row class="switch-pieType">
       当前为 <el-select v-model="year" placeholder="请选择年份" @change="switchyear">
         <el-option

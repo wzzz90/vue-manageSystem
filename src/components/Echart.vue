@@ -3,6 +3,9 @@
 </template>
 
 <script>
+
+import echarts from '@/utils/echarts'
+
 export default {
   name: 'echart',
   props: {
@@ -60,7 +63,7 @@ export default {
 
   methods: {
     InitCharts() {
-      this.MyEcharts = this.$echarts.init(document.getElementById(this.id));
+      this.MyEcharts = echarts.init(document.getElementById(this.id));
       this.MyEcharts.clear();
       this.MyEcharts.setOption(this.option, true); 
     }

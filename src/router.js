@@ -5,7 +5,7 @@ import axios from './http';
 
 import Layout  from '@/components/Layout';
 
-Vue.use(Router)
+// Vue.use(Router)
 
 const load = (view) => () => import(`./views/${ view }`);
 
