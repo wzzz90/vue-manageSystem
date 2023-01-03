@@ -29,8 +29,8 @@
     "vuex-localstorage": "^1.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-service": "^3.7.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "babel-plugin-component": "^1.1.1",
     "compression-webpack-plugin": "^3.0.0",
     "node-sass": "^4.9.0",
